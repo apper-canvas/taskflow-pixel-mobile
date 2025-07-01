@@ -1,0 +1,187 @@
+@import 'react-toastify/dist/ReactToastify.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #F7F9FC;
+}
+
+#root {
+  height: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
+/* Toast customization */
+.Toastify__toast-container {
+  top: 24px;
+  right: 24px;
+  width: 320px;
+}
+
+.Toastify__toast {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  min-height: 48px;
+  padding: 12px 16px;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+}
+
+.Toastify__toast--warning {
+  background: linear-gradient(135deg, #FFD93D 0%, #FFC107 100%);
+}
+
+.Toastify__toast--info {
+  background: linear-gradient(135deg, #4DABF7 0%, #2196F3 100%);
+}
+
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Task completion animation */
+@keyframes taskComplete {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+.task-completing {
+  animation: taskComplete 300ms ease-out;
+}
+
+/* Drag and drop styles */
+.drag-over {
+  background: linear-gradient(135deg, #F0EEFF 0%, #E5DEFF 100%);
+  border: 2px dashed #5B4FE9;
+}
+
+.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+}
+
+/* Form focus styles */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(91, 79, 233, 0.1);
+  border-color: #5B4FE9;
+}
+
+/* Button hover effects */
+.btn-hover {
+  transition: all 150ms ease-out;
+}
+
+.btn-hover:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.btn-hover:active {
+  transform: translateY(0);
+  filter: brightness(0.95);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 200ms ease-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* Priority badge animations */
+.priority-badge {
+  transition: all 150ms ease-out;
+}
+
+.priority-badge:hover {
+  transform: scale(1.05);
+}
+
+/* Category item animations */
+.category-item {
+  transition: all 200ms ease-out;
+}
+
+.category-item:hover {
+  background: rgba(91, 79, 233, 0.05);
+  transform: translateX(4px);
+}
+
+.category-item.active {
+  background: linear-gradient(135deg, rgba(91, 79, 233, 0.1) 0%, rgba(124, 113, 245, 0.05) 100%);
+  border-right: 3px solid #5B4FE9;
+}
+
+/* Checkbox animations */
+.checkbox-animated {
+  transition: all 200ms ease-out;
+}
+
+.checkbox-animated:checked {
+  background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+  border-color: #4ECDC4;
+}
+
+/* Loading shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 0px, #e0e0e0 40px, #f0f0f0 80px);
+  background-size: 600px;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
