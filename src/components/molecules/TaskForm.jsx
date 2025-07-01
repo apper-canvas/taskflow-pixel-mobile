@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { format } from 'date-fns';
-import Input from '@/components/atoms/Input';
-import Button from '@/components/atoms/Button';
-import ApperIcon from '@/components/ApperIcon';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { format } from "date-fns";
+import ReactMarkdown from "react-markdown";
+import ApperIcon from "@/components/ApperIcon";
+import Input from "@/components/atoms/Input";
+import Button from "@/components/atoms/Button";
 
 const TaskForm = ({ 
   task = null, 
@@ -12,21 +13,23 @@ const TaskForm = ({
   onCancel, 
   isLoading = false 
 }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     title: '',
     priority: 'medium',
     dueDate: '',
     categoryId: '',
+    notes: '',
   });
   const [errors, setErrors] = useState({});
-
+  const [showMarkdownPreview, setShowMarkdownPreview] = useState(false);
   useEffect(() => {
     if (task) {
-      setFormData({
+setFormData({
         title: task.title || '',
         priority: task.priority || 'medium',
         dueDate: task.dueDate ? format(new Date(task.dueDate), 'yyyy-MM-dd') : '',
         categoryId: task.categoryId || '',
+        notes: task.notes || '',
       });
     } else if (categories.length > 0) {
       setFormData(prev => ({
@@ -56,11 +59,12 @@ const TaskForm = ({
     
     if (!validateForm()) return;
 
-    const taskData = {
+const taskData = {
       ...formData,
       title: formData.title.trim(),
       dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : null,
       categoryId: formData.categoryId,
+      notes: formData.notes?.trim() || '',
     };
 
     onSubmit(taskData);
@@ -140,7 +144,7 @@ const TaskForm = ({
         </div>
       </div>
 
-      <Input
+<Input
         label="Due Date (Optional)"
         type="date"
         value={formData.dueDate}
@@ -149,6 +153,44 @@ const TaskForm = ({
         min={format(new Date(), 'yyyy-MM-dd')}
       />
 
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <label className="block text-sm font-medium text-gray-700">
+            Notes (Optional)
+          </label>
+          <button
+            type="button"
+            onClick={() => setShowMarkdownPreview(!showMarkdownPreview)}
+            className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+            disabled={isLoading}
+          >
+            {showMarkdownPreview ? 'Edit' : 'Preview'}
+          </button>
+        </div>
+        
+        {!showMarkdownPreview ? (
+          <textarea
+            value={formData.notes}
+            onChange={(e) => handleChange('notes', e.target.value)}
+            placeholder="Add notes with markdown support...&#10;&#10;**Bold text**&#10;*Italic text*&#10;# Heading&#10;- List item"
+            disabled={isLoading}
+            rows={4}
+            className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 resize-vertical"
+          />
+        ) : (
+          <div className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg min-h-[100px] prose prose-sm max-w-none">
+            {formData.notes ? (
+              <ReactMarkdown>{formData.notes}</ReactMarkdown>
+            ) : (
+              <span className="text-gray-400 italic">No notes to preview</span>
+            )}
+          </div>
+        )}
+        
+        <p className="text-xs text-gray-500">
+          Supports markdown: **bold**, *italic*, # headings, - lists, [links](url)
+        </p>
+      </div>
       <div className="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
         <Button
           type="button"

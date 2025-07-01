@@ -59,9 +59,10 @@
     "createdAt": "2024-12-20T12:00:00.000Z",
     "order": 6
   },
-  {
+{
     "Id": 7,
     "title": "Complete React course",
+    "notes": "# React Learning Path\n\n## Completed modules:\n- ✅ Components & JSX\n- ✅ State & Props\n- ✅ Event Handling\n\n## Remaining:\n- [ ] Hooks (useEffect, useContext)\n- [ ] Routing\n- [ ] State Management\n\n**Target: 2 hours per day**",
     "completed": false,
     "priority": "high",
     "dueDate": "2024-12-30T23:59:00.000Z",
